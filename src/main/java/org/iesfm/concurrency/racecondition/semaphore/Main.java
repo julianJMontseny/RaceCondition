@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.semaphore;
+package org.iesfm.concurrency.racecondition.semaphore;
 
 import java.util.concurrent.Semaphore;
 

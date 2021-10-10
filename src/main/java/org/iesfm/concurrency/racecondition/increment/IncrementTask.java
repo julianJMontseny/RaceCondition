@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.increment;
+package org.iesfm.concurrency.racecondition.increment;
 
 public class IncrementTask implements Runnable {
     private Accumulator acc;
