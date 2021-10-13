@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.increment;
+package org.iesfm.racecondition.deadlock;
 
 /**
  * Esta clase es thread-safe
@@ -7,7 +7,7 @@ public class Accumulator {
     private int value = 0;
 
     // Ahora el método inc solo se puede ejecutar por un proceso al mismo tiempo
-    public synchronized void inc() {
+    public void inc() {
         // Esta sentencia NO es atómica
         value = value + 1;
         // value = 0
@@ -18,7 +18,7 @@ public class Accumulator {
         // value = 2
     }
 
-    public synchronized void dec() {
+    public void dec() {
         // Esta sentencia NO es atómica
         value = value - 1;
         // value = 0
@@ -27,10 +27,6 @@ public class Accumulator {
         // H1   0 + 1 = 1 value=1
         // H2   0 + 1 = 1         value=1
         // value = 2
-    }
-
-    public void imprimir() {
-        System.out.println("El contador está a " + value);
     }
 
     public int getValue() {

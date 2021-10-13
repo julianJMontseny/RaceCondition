@@ -1,10 +1,14 @@
 package org.iesfm.racecondition.increment;
 
+import java.util.concurrent.Semaphore;
+
 public class IncrementTask implements Runnable {
+    private Semaphore semaphore;
     private Accumulator acc;
     private int times;
 
-    public IncrementTask(Accumulator acc, int times) {
+    public IncrementTask(Semaphore semaphore, Accumulator acc, int times) {
+        this.semaphore = semaphore;
         this.acc = acc;
         this.times = times;
     }
@@ -12,7 +16,19 @@ public class IncrementTask implements Runnable {
     @Override
     public void run() {
         for (int i = 0; i < times; i++) {
-            acc.inc();
+            try {
+                if (i % 2 == 0) {
+                    semaphore.acquire();
+                    acc.inc();
+                    semaphore.release();
+                } else {
+                    semaphore.acquire();
+                    acc.dec();
+                    semaphore.release();
+                }
+            } catch (InterruptedException e) {
+
+            }
         }
     }
 }
