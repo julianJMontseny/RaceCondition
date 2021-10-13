@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.lista;
+package org.iesfm.concurrency.racecondition.lista;
 
 import java.util.List;
 

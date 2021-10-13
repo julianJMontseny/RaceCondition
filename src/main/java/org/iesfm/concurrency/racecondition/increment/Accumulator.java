@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.increment;
+package org.iesfm.concurrency.racecondition.increment;
 
 /**
  * Esta clase es thread-safe

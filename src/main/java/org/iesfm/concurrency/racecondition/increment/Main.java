@@ -1,27 +1,24 @@
-package org.iesfm.racecondition.lista;
+package org.iesfm.concurrency.racecondition.increment;
 
-import org.iesfm.racecondition.increment.IncrementTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 public class Main {
+
     private static Logger log = LoggerFactory.getLogger(
-            org.iesfm.racecondition.increment.Main.class
+            Main.class
     );
 
     public static void main(String[] args) {
-        // Ahora la lista es sincronizada, es decir, es thread safe
-        // La ventaja es que es thread safe
-        // La desventaje es que es más lenta
-        List<Integer> lista = Collections.synchronizedList(new ArrayList<>());
+        Accumulator acc = new Accumulator();
+        Semaphore semaphore = new Semaphore(1);
         List<Thread> threads = new LinkedList<>();
         for (int i = 0; i < 100; i++) {
-            Thread t = new Thread(new AddToListTask(lista, 100000));
+            Thread t = new Thread(new IncrementTask(semaphore, acc, 100000));
             t.start();
             threads.add(t);
         }
@@ -34,6 +31,7 @@ public class Main {
             }
         }
 
-        log.info("Hay " + lista.size() + " elementos en la lista");
+        log.info("El resutlado es " + acc.getValue());
+
     }
 }

@@ -1,4 +1,4 @@
-package org.iesfm.racecondition.increment;
+package org.iesfm.concurrency.racecondition.increment;
 
 import java.util.concurrent.Semaphore;
 
